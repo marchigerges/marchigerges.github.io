@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marchilino — Product Designer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #F7F6F3;
+      --surface: #EFEDE8;
+      --ink: #1A1917;
+      --ink-2: #6B6860;
+      --ink-3: #A8A59F;
+      --accent: #2D5BE3;
+      --accent-warm: #C8601A;
+      --border: #E0DDD7;
+      --serif: 'Instrument Serif', Georgia, serif;
+      --sans: 'DM Sans', sans-serif;
+      --max: 1100px;
+      --radius: 4px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 40px;
+      background: rgba(247,246,243,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 18px;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+    .nav-links {
+      display: flex; gap: 32px; list-style: none;
+    }
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--ink-2);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-cta {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink) !important;
+      border: 1px solid var(--border);
+      padding: 7px 16px;
+      border-radius: 100px;
+      transition: background 0.2s, border-color 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--ink) !important; color: var(--bg) !important; border-color: var(--ink) !important; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 140px 40px 80px;
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+    .hero-label {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: 28px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .hero-label::before {
+      content: '';
+      display: block;
+      width: 28px; height: 1px;
+      background: var(--ink-3);
+    }
+    .hero-headline {
+      font-family: var(--serif);
+      font-size: clamp(48px, 7vw, 96px);
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      max-width: 820px;
+      margin-bottom: 36px;
+    }
+    .hero-headline em {
+      font-style: italic;
+      color: var(--ink-2);
+    }
+    .hero-sub {
+      font-size: 17px;
+      color: var(--ink-2);
+      font-weight: 300;
+      max-width: 520px;
+      line-height: 1.65;
+      margin-bottom: 48px;
+    }
+    .hero-actions {
+      display: flex; gap: 14px; align-items: center; flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--ink);
+      color: var(--bg);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 13px 24px;
+      border-radius: 100px;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: #333; transform: translateY(-1px); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: var(--ink-2);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 400;
+      padding: 13px 0;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .btn-secondary:hover { color: var(--ink); border-color: var(--ink); }
+    .hero-scroll {
+      position: absolute;
+      right: 40px; bottom: 80px;
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: var(--ink-3);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      writing-mode: vertical-rl;
+    }
+    .hero-scroll::after {
+      content: '';
+      width: 1px; height: 48px;
+      background: var(--border);
+      display: block;
+    }
+
+    /* ── MARQUEE STRIP ── */
+    .marquee-wrap {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+      background: var(--surface);
+      padding: 14px 0;
+    }
+    .marquee-track {
+      display: flex; gap: 0;
+      animation: marquee 22s linear infinite;
+      white-space: nowrap;
+    }
+    .marquee-track span {
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      padding: 0 32px;
+    }
+    .marquee-track span.dot {
+      color: var(--accent);
+      padding: 0;
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 120px 40px; }
+    .section-inner { max-width: var(--max); margin: 0 auto; }
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: 56px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .section-label::before {
+      content: attr(data-num);
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 14px;
+      color: var(--border);
+      letter-spacing: 0;
+    }
+
+    /* ── CASE STUDIES ── */
+    #work { background: var(--bg); }
+    .work-header {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      margin-bottom: 64px;
+      flex-wrap: wrap; gap: 24px;
+    }
+    .work-title {
+      font-family: var(--serif);
+      font-size: clamp(32px, 4vw, 52px);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+    .work-note {
+      font-size: 14px;
+      color: var(--ink-3);
+      max-width: 260px;
+      text-align: right;
+      line-height: 1.5;
+    }
+    .case-grid { display: flex; flex-direction: column; gap: 2px; }
+
+    .case-item {
+      display: grid;
+      grid-template-columns: 48px 88px 1fr auto 32px;
+      align-items: center;
+      gap: 28px;
+      padding: 24px 0;
+      border-top: 1px solid var(--border);
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+    }
+    .case-item:last-child { border-bottom: 1px solid var(--border); }
+    .case-arrow {
+      font-size: 20px;
+      color: var(--ink-3);
+      transition: transform 0.2s, color 0.2s;
+      text-align: right;
+    }
+    .case-item:hover .case-arrow { transform: translateX(4px); color: var(--ink); }
+    .case-thumb {
+      width: 88px; height: 60px;
+      border-radius: 6px;
+      object-fit: cover;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      transition: opacity 0.2s;
+    }
+    .case-item:hover .case-thumb { opacity: 0.85; }
+
+    .case-num {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 13px;
+      color: var(--ink-3);
+    }
+    .case-meta { flex: 1; }
+    .case-name {
+      font-family: var(--serif);
+      font-size: clamp(18px, 2vw, 26px);
+      letter-spacing: -0.01em;
+      margin-bottom: 4px;
+      transition: color 0.2s;
+    }
+    .case-item:hover .case-name { color: var(--accent); }
+    .case-desc {
+      font-size: 13px;
+      color: var(--ink-2);
+      font-weight: 300;
+    }
+    .case-tags {
+      display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end;
+    }
+    .tag {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 100px;
+    }
+
+    /* ── CASE STUDY MODAL ── */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(26,25,23,0.6);
+      backdrop-filter: blur(8px);
+      z-index: 200;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+      display: flex; align-items: flex-start; justify-content: flex-end;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal-panel {
+      width: min(680px, 100vw);
+      height: 100vh;
+      background: var(--bg);
+      overflow-y: auto;
+      padding: 60px 52px;
+      transform: translateX(40px);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .modal-overlay.open .modal-panel { transform: translateX(0); }
+    .modal-close {
+      position: absolute;
+      top: 24px; right: 24px;
+      width: 36px; height: 36px;
+      background: var(--surface);
+      border: none; border-radius: 50%;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; color: var(--ink-2);
+      transition: background 0.2s;
+    }
+    .modal-close:hover { background: var(--border); }
+    .modal-tag-row { display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; }
+    .modal-headline {
+      font-family: var(--serif);
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+    .modal-subhead {
+      font-size: 16px;
+      color: var(--ink-2);
+      font-weight: 300;
+      line-height: 1.65;
+      margin-bottom: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid var(--border);
+    }
+    .modal-section { margin-bottom: 44px; }
+    .modal-section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: 16px;
+    }
+    .modal-section p {
+      font-size: 15px;
+      color: var(--ink-2);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+    .modal-decisions { display: flex; flex-direction: column; gap: 20px; }
+    .decision-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px 24px;
+    }
+    .decision-card strong {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+    .decision-card p {
+      font-size: 14px;
+      color: var(--ink-2);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+    .modal-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--accent);
+      text-decoration: none;
+      margin-top: 32px;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+    .modal-link:hover { border-color: var(--accent); }
+
+    /* ── ABOUT ── */
+    #about { background: var(--surface); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: start;
+    }
+    .about-headline {
+      font-family: var(--serif);
+      font-size: clamp(28px, 3.5vw, 46px);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 28px;
+    }
+    .about-body {
+      font-size: 16px;
+      color: var(--ink-2);
+      font-weight: 300;
+      line-height: 1.75;
+    }
+    .about-body p + p { margin-top: 18px; }
+    .about-right { padding-top: 8px; }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+    .skill-cell {
+      padding: 18px 0;
+      border-top: 1px solid var(--border);
+    }
+    .skill-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: 8px;
+    }
+    .skill-items { display: flex; flex-direction: column; gap: 4px; }
+    .skill-items span {
+      font-size: 14px;
+      color: var(--ink-2);
+      font-weight: 300;
+    }
+    .currently-row {
+      margin-top: 40px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .currently-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+    }
+    .currently-val {
+      font-size: 15px;
+      color: var(--ink);
+      font-weight: 300;
+    }
+    .dot-green {
+      display: inline-block;
+      width: 7px; height: 7px;
+      background: #3DAA6F;
+      border-radius: 50%;
+      margin-right: 8px;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--ink); }
+    #contact .section-label { color: #555450; }
+    #contact .section-label::before { color: #333; }
+    .contact-headline {
+      font-family: var(--serif);
+      font-size: clamp(40px, 6vw, 80px);
+      line-height: 1.02;
+      letter-spacing: -0.025em;
+      color: var(--bg);
+      margin-bottom: 20px;
+    }
+    .contact-headline em { font-style: italic; color: #A8A59F; }
+    .contact-sub {
+      font-size: 16px;
+      color: #6B6860;
+      font-weight: 300;
+      margin-bottom: 52px;
+    }
+    .contact-links {
+      display: flex; gap: 16px; flex-wrap: wrap;
+    }
+    .contact-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 14px 28px;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .contact-btn-primary {
+      background: var(--bg);
+      color: var(--ink);
+    }
+    .contact-btn-primary:hover { background: #e8e6e1; }
+    .contact-btn-secondary {
+      background: transparent;
+      color: #6B6860;
+      border: 1px solid #333;
+    }
+    .contact-btn-secondary:hover { border-color: #555; color: #999; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      border-top: 1px solid #222;
+      padding: 24px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-name {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 15px;
+      color: #555;
+    }
+    .footer-right {
+      font-size: 12px;
+      color: #444;
+    }
+
+    /* ── ANIMATIONS ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      section { padding: 80px 24px; }
+      .hero { padding: 120px 24px 64px; }
+      .about-grid { grid-template-columns: 1fr; gap: 48px; }
+      .case-item { grid-template-columns: 36px 1fr 24px; gap: 16px; }
+      .case-thumb, .case-tags { display: none; }
+      .modal-panel { padding: 40px 28px; }
+      footer { padding: 20px 24px; }
+      .hero-scroll { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">Marchilino</a>
+    <ul class="nav-links">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="https://marchilino.com/s/Marchilino_Gerges_Resume.pdf" target="_blank" class="nav-cta">Resume ↗</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div style="position:relative;">
+    <div class="hero">
+      <p class="hero-label">Sydney, Australia — Open to remote</p>
+      <h1 class="hero-headline">Product designer who thinks <em>like a PM.</em></h1>
+      <p class="hero-sub">I design products from the inside out — close enough to build, involved enough to decide what gets built and why. Currently working with startups at the intersection of UX and product strategy.</p>
+      <div class="hero-actions">
+        <a href="#work" class="btn-primary">See my work</a>
+        <a href="#contact" class="btn-secondary">Get in touch →</a>
+      </div>
+    </div>
+    <div class="hero-scroll">Scroll</div>
+  </div>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track" id="marquee">
+      <span>User Research</span><span class="dot">·</span>
+      <span>0→1 Product Design</span><span class="dot">·</span>
+      <span>Product Strategy</span><span class="dot">·</span>
+      <span>Prototyping</span><span class="dot">·</span>
+      <span>Figma</span><span class="dot">·</span>
+      <span>Stakeholder Alignment</span><span class="dot">·</span>
+      <span>Growth Thinking</span><span class="dot">·</span>
+      <span>Systems Design</span><span class="dot">·</span>
+      <span>Startup Environments</span><span class="dot">·</span>
+      <span>User Research</span><span class="dot">·</span>
+      <span>0→1 Product Design</span><span class="dot">·</span>
+      <span>Product Strategy</span><span class="dot">·</span>
+      <span>Prototyping</span><span class="dot">·</span>
+      <span>Figma</span><span class="dot">·</span>
+      <span>Stakeholder Alignment</span><span class="dot">·</span>
+      <span>Growth Thinking</span><span class="dot">·</span>
+      <span>Systems Design</span><span class="dot">·</span>
+      <span>Startup Environments</span><span class="dot">·</span>
+    </div>
+  </div>
+
+  <!-- WORK -->
+  <section id="work">
+    <div class="section-inner">
+      <div class="work-header fade-up">
+        <h2 class="work-title">Selected work</h2>
+        <p class="work-note">Each project is framed around decisions made, not just design delivered.</p>
+      </div>
+      <div class="case-grid">
+
+        <div class="case-item fade-up" onclick="openModal('dds')">
+          <span class="case-num">01</span>
+          <img class="case-thumb" src="https://images.squarespace-cdn.com/content/v1/688a0f72f8238c068d90055c/ba88b3ee-0f99-47e1-bb96-b8cd0a5d8f01/DDS.png" alt="Deep Defense Solutions" />
+          <div class="case-meta">
+            <div class="case-name">Deep Defense Solutions</div>
+            <div class="case-desc">Enterprise safety platform — incident management for high-risk organisations</div>
+          </div>
+          <div class="case-tags">
+            <span class="tag">B2B SaaS</span>
+            <span class="tag">0→1</span>
+            <span class="tag">NDA</span>
+          </div>
+          <span class="case-arrow">→</span>
+        </div>
+
+        <div class="case-item fade-up" onclick="openModal('spread')">
+          <span class="case-num">02</span>
+          <img class="case-thumb" src="https://images.squarespace-cdn.com/content/v1/688a0f72f8238c068d90055c/b7feaa25-e33b-41cf-b3df-d91207c91249/SPREAD.png" alt="Spread" />
+          <div class="case-meta">
+            <div class="case-name">Spread</div>
+            <div class="case-desc">Growth-focused interactive quiz for an early-stage food startup</div>
+          </div>
+          <div class="case-tags">
+            <span class="tag">B2C</span>
+            <span class="tag">Growth</span>
+            <span class="tag">Startup</span>
+          </div>
+          <span class="case-arrow">→</span>
+        </div>
+
+        <div class="case-item fade-up" onclick="openModal('mim')">
+          <span class="case-num">03</span>
+          <img class="case-thumb" src="https://images.squarespace-cdn.com/content/v1/688a0f72f8238c068d90055c/51870d18-e520-43e8-a781-16afd6726e40/MEN+IN+MOTION.png" alt="Men in Motion" />
+          <div class="case-meta">
+            <div class="case-name">Men in Motion</div>
+            <div class="case-desc">Website redesign built around conversion psychology for a fitness brand</div>
+          </div>
+          <div class="case-tags">
+            <span class="tag">B2C</span>
+            <span class="tag">Conversion</span>
+            <span class="tag">Web</span>
+          </div>
+          <span class="case-arrow">→</span>
+        </div>
+
+        <div class="case-item fade-up" onclick="openModal('invstr')">
+          <span class="case-num">04</span>
+          <img class="case-thumb" src="https://images.squarespace-cdn.com/content/v1/688a0f72f8238c068d90055c/59242165-1a4a-4cde-86c1-d3cea9551792/INVSTR.png" alt="INVSTR" />
+          <div class="case-meta">
+            <div class="case-name">INVSTR</div>
+            <div class="case-desc">Fintech concept app designed to lower the barrier to first-time investing</div>
+          </div>
+          <div class="case-tags">
+            <span class="tag">Fintech</span>
+            <span class="tag">Mobile</span>
+            <span class="tag">Concept</span>
+          </div>
+          <span class="case-arrow">→</span>
+        </div>
+
+        <div class="case-item fade-up" onclick="openModal('localink')">
+          <span class="case-num">05</span>
+          <img class="case-thumb" src="https://images.squarespace-cdn.com/content/v1/688a0f72f8238c068d90055c/192eba34-1d05-407a-8ad5-1ffeab3a5742/LOCALINK.png" alt="LocaLink" />
+          <div class="case-meta">
+            <div class="case-name">LocaLink</div>
+            <div class="case-desc">Travel app connecting travellers with locals who share similar interests</div>
+          </div>
+          <div class="case-tags">
+            <span class="tag">Travel</span>
+            <span class="tag">Mobile</span>
+            <span class="tag">Concept</span>
+          </div>
+          <span class="case-arrow">→</span>
+        </div>
+
+        <div class="case-item fade-up" onclick="openModal('sharesquare')">
+          <span class="case-num">06</span>
+          <img class="case-thumb" src="https://images.squarespace-cdn.com/content/v1/688a0f72f8238c068d90055c/953d4d91-ea29-4a42-8cb3-95e9a96b771c/BargainBuddy+%281%29.png" alt="ShareSquare" />
+          <div class="case-meta">
+            <div class="case-name">ShareSquare</div>
+            <div class="case-desc">Houseshare app reducing friction between housemates around finances and chores</div>
+          </div>
+          <div class="case-tags">
+            <span class="tag">Consumer</span>
+            <span class="tag">Mobile</span>
+            <span class="tag">Concept</span>
+          </div>
+          <span class="case-arrow">→</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-inner">
+      <p class="section-label" data-num="02">About</p>
+      <div class="about-grid">
+        <div class="fade-up">
+          <h2 class="about-headline">Somewhere between the pixels and the product decisions.</h2>
+          <div class="about-body">
+            <p>I'm Marchi — a Sydney-based product designer moving toward product management. My background is in UX and product design, but the work I care most about is the thinking that happens before anything gets built: what problem are we solving, for who, and why does it matter?</p>
+            <p>I've worked with early-stage startups across food, safety tech, fitness, and fintech — mostly as the sole designer, which means I've had to be part designer, part strategist, and part product owner all at once.</p>
+            <p>I'm drawn to fast-moving teams where I can be close to the build while also having a seat at the table where decisions get made. That's the version of this work I want to grow into.</p>
+          </div>
+          <div class="currently-row">
+            <span class="currently-label">Currently</span>
+            <span class="currently-val"><span class="dot-green"></span>Working with Spread on product and growth</span>
+            <span class="currently-val" style="color: var(--ink-2); font-size:14px; margin-top:2px;">Open to full-time PM or product design roles</span>
+          </div>
+        </div>
+        <div class="about-right fade-up">
+          <img src="Profile_Pic.jpg" alt="Marchilino" style="width:200px; height:200px; border-radius:50%; margin-bottom:36px; object-fit:cover; object-position:center top; border:3px solid var(--border); display:block;" />
+          <div class="skills-grid">
+            <div class="skill-cell">
+              <div class="skill-label">Design</div>
+              <div class="skill-items">
+                <span>Figma</span>
+                <span>Prototyping</span>
+                <span>User research</span>
+                <span>Design systems</span>
+              </div>
+            </div>
+            <div class="skill-cell">
+              <div class="skill-label">Product</div>
+              <div class="skill-items">
+                <span>0→1 scoping</span>
+                <span>Requirements</span>
+                <span>Roadmapping</span>
+                <span>Stakeholder comms</span>
+              </div>
+            </div>
+            <div class="skill-cell">
+              <div class="skill-label">Thinking</div>
+              <div class="skill-items">
+                <span>Problem framing</span>
+                <span>User empathy</span>
+                <span>Systems thinking</span>
+                <span>Growth strategy</span>
+              </div>
+            </div>
+            <div class="skill-cell">
+              <div class="skill-label">Context</div>
+              <div class="skill-items">
+                <span>Startups</span>
+                <span>B2B SaaS</span>
+                <span>Fintech</span>
+                <span>Consumer apps</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-inner">
+      <p class="section-label" data-num="03">Contact</p>
+      <h2 class="contact-headline">Let's build something <em>worth building.</em></h2>
+      <p class="contact-sub">Open to PM, associate PM, and product design roles at startups and fast-moving teams.</p>
+      <div class="contact-links">
+        <a href="/cdn-cgi/l/email-protection#cda0e3aaa8bfaaa8bea5be8daaa0aca4a1e3aea2a0" class="contact-btn contact-btn-primary">Send an email →</a>
+        <a href="https://linkedin.com/in/marchilino" target="_blank" class="contact-btn contact-btn-secondary">LinkedIn ↗</a>
+        <a href="https://marchilino.com/s/Marchilino_Gerges_Resume.pdf" target="_blank" class="contact-btn contact-btn-secondary">Resume ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-name">Marchilino Gerges</span>
+    <span class="footer-right">Sydney, AU — 2026</span>
+  </footer>
+
+  <!-- MODAL OVERLAY -->
+  <div class="modal-overlay" id="modal" onclick="handleOverlayClick(event)">
+    <div class="modal-panel" id="modalPanel">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // Marquee duplicate for infinite scroll
+    const track = document.getElementById('marquee');
+    track.innerHTML += track.innerHTML;
+
+    // Modal content
+    const cases = {
+      dds: {
+        tags: ['B2B SaaS', '0→1', 'Internship', 'NDA'],
+        title: 'Deep Defense Solutions',
+        sub: 'How do you design a safety-critical product when every wrong decision has real-world consequences? At DDS, I didn\'t just design screens — I helped figure out what the product should actually do and how it should work.',
+        sections: [
+          {
+            label: 'The Problem',
+            text: 'Organisations responding to safety incidents were stuck using generic ticketing tools or government-built systems that weren\'t designed for real-time, high-stakes decision-making. The result: slow responses, confusion across teams, and unnecessary risk.'
+          },
+          {
+            label: 'My Role',
+            text: 'Product Design (UX/UI) intern across a 3-month engagement. In practice, this meant mapping the full product — not just designing it. I was responsible for understanding the incident lifecycle end-to-end and making structural decisions about how the platform would work.'
+          },
+          {
+            label: 'Key Decisions Made',
+            decisions: [
+              { title: 'Built in mandatory human review checkpoints', body: 'Early flows relied too heavily on AI triage. I pushed back and designed explicit human review gates at critical stages — reducing the risk of automated errors in life-safety situations.' },
+              { title: 'Separated assessment from resolution', body: 'Initial designs bundled triage and response into one flow. I split these into distinct stages so users could make faster first decisions without needing all the information upfront.' },
+              { title: 'Prioritised status and severity over detail', body: 'Users in high-pressure environments need to know what\'s urgent, fast. I redesigned the information hierarchy to surface threat level and status first, with deeper context one step away.' },
+              { title: 'Scoped the AI layer deliberately', body: 'There was pressure to design for AI features early. I helped scope which parts genuinely needed AI (ingestion, pattern detection) versus which needed human judgment — keeping the MVP focused.' }
+            ]
+          },
+          {
+            label: 'What I Learned',
+            text: 'In high-risk environments, clear structure matters more than polished UI. The most important design decisions I made weren\'t visual — they were about workflow logic, access control, and where human judgment had to be protected.'
+          }
+        ],
+        link: null,
+        linkLabel: null
+      },
+      spread: {
+        tags: ['B2C', 'Growth', 'Early-stage Startup'],
+        title: 'Spread — Growth Quiz',
+        sub: 'Spread is a food startup cutting out supermarket middlemen to connect consumers with Australian farmers. The problem wasn\'t the product — it was getting people to care enough to engage with it.',
+        sections: [
+          {
+            label: 'The Business Problem',
+            text: 'The Spread website wasn\'t converting visitors. First-time users had no clear reason to explore the brand, felt overwhelmed by food choices, and left without engaging. The team needed a low-cost, shareable acquisition tool — not more paid ads.'
+          },
+          {
+            label: 'The Solution',
+            text: 'An interactive quiz that recommends food based on a user\'s lifestyle, palate, and food values. Not just a marketing gimmick — a genuine onboarding tool that helps users self-select into the right products while building brand affinity through the experience itself.'
+          },
+          {
+            label: 'Key Decisions Made',
+            decisions: [
+              { title: 'Cut from 25 questions to 10', body: 'The original brief called for a comprehensive quiz. I pushed to cut it by 60% — shorter completion time directly improves finish rates and reduces abandonment. We agreed to revisit length once we had real completion data.' },
+              { title: 'Designed around archetypes, not food items', body: 'Asking users to choose specific foods creates friction and biases toward familiar choices. I created a rubric built on food foundation, palate, and personality — producing more accurate recommendations with less cognitive load.' },
+              { title: 'Targeted 5 minutes as the ceiling', body: 'We had no user data yet, so I used completion rate research as a proxy. Five minutes felt short enough to finish, long enough to feel personalised. Built in a plan to revisit based on real drop-off data post-launch.' }
+            ]
+          },
+          {
+            label: 'Outcome',
+            text: 'The quiz shipped and is embedded in Spread\'s acquisition flow. Post-launch tracking of completion rate and conversion to first purchase is in progress. The tool is designed to be iterable — question content and flow logic can be updated without a full rebuild.'
+          }
+        ],
+        link: 'https://www.figma.com/proto/nYyH4HDhBfjYPHTeU6DYx9/Spread-Questionnaire?node-id=324-347&t=bZnzuRLTcJVKpc8K-1',
+        linkLabel: 'View prototype ↗'
+      },
+      mim: {
+        tags: ['B2C', 'Conversion', 'Web Redesign'],
+        title: 'Men in Motion',
+        sub: 'A fitness program for middle-aged men that wasn\'t converting — not because the product was bad, but because the website didn\'t earn trust or speak to the right emotional driver.',
+        sections: [
+          {
+            label: 'The Problem',
+            text: 'The owner had a strong program but was losing potential clients at the website. The design felt dated, there was no social proof, and the membership flow created friction exactly where commitment needed to happen. Competitors were winning on perception alone.'
+          },
+          {
+            label: 'Research First',
+            text: 'Before touching Figma, I interviewed the client, audited three competitors, and ran usability feedback sessions on the existing site. Key finding: middle-aged men aren\'t primarily motivated by aesthetics — they want to feel capable again and to trust the program will fit their life.'
+          },
+          {
+            label: 'Key Decisions Made',
+            decisions: [
+              { title: 'Built the page hierarchy around trust signals', body: 'Testimonials, before/after outcomes, and a money-back guarantee were elevated to top-of-page — not buried in footers. Social proof is the primary conversion lever for this demographic.' },
+              { title: 'Used the decoy effect in pricing', body: 'The client wanted one plan to outsell the others. I applied the isolation effect (Von Restorff) combined with a decoy middle option to direct attention toward the target package without it feeling forced.' },
+              { title: 'Rewrote the hero messaging', body: 'Original copy was generic fitness language. Research showed the target user responds to capability and time-efficiency, not aesthetics. New headline: "Get back in shape without giving up the things you enjoy." Framing changed entirely.' }
+            ]
+          },
+          {
+            label: 'Outcome',
+            text: 'The redesigned site is live at meninmotion.com.au. A/B testing framework was scoped for future conversion optimisation across the CTA and pricing sections.'
+          }
+        ],
+        link: 'https://www.meninmotion.com.au',
+        linkLabel: 'View live site ↗'
+      },
+      invstr: {
+        tags: ['Fintech', 'Mobile', 'Concept'],
+        title: 'INVSTR',
+        sub: 'A concept fintech app exploring a simple question: why do most young people never make their first investment, even when they want to?',
+        sections: [
+          {
+            label: 'The Problem',
+            text: 'First-time investors face a confidence problem, not a knowledge problem. Most investment apps assume users know what they want to do — they just need a platform to do it. INVSTR starts from the opposite assumption: users need to be guided to their first decision before they can act.'
+          },
+          {
+            label: 'The Approach',
+            text: 'Designed a mobile-first experience that treats onboarding as the core product — not a gate before the real app. Risk profiling, goal-setting, and first investment recommendation are woven into an interactive flow that builds confidence incrementally.'
+          },
+          {
+            label: 'Key Design Decisions',
+            decisions: [
+              { title: 'Progressive disclosure over information dump', body: 'Most fintech onboarding shows everything at once. INVSTR surfaces only what\'s needed at each step — keeping users moving forward without overwhelming them with options.' },
+              { title: 'Language calibrated for first-timers', body: 'Every label, tooltip, and CTA was written assuming zero financial literacy. This isn\'t dumbing it down — it\'s removing the jargon barrier that causes most people to abandon financial apps before they start.' }
+            ]
+          },
+          {
+            label: 'Status',
+            text: 'Concept project — designed as a portfolio exploration of fintech UX and onboarding psychology. Available to walk through in detail.'
+          }
+        ],
+        link: null,
+        linkLabel: null
+      },
+      localink: {
+        tags: ['Travel', 'Mobile', 'Concept'],
+        title: 'LocaLink',
+        sub: 'A travel app concept built around a simple insight: the best experiences in a new city come from people who actually live there, not from tourist guides.',
+        sections: [
+          { label: 'The Problem', text: 'Travellers want authentic local experiences but have no reliable way to connect with locals who share their interests. Existing platforms are either too transactional (Airbnb Experiences) or too unstructured (Reddit threads, Facebook groups).' },
+          { label: 'The Approach', text: 'Designed a mobile-first experience that matches travellers with locals based on shared hobbies — not just location. The onboarding flow surfaces interests early so matching can happen before the trip, not after arrival.' },
+          { label: 'Key Design Decisions', decisions: [
+            { title: 'Interest-first matching over location-first', body: 'Most travel apps start with "where are you going?" — LocaLink starts with "what do you care about?" This shifts the product from a directory into a genuine matching experience.' },
+            { title: 'Trust and safety as a core design constraint', body: 'Connecting strangers requires trust signals built into the UI — verified profiles, shared interest visibility, and clear opt-in communication flows were core to the design, not afterthoughts.' }
+          ]},
+          { label: 'Status', text: 'Concept project exploring social travel UX and community-driven product design.' }
+        ],
+        link: null, linkLabel: null
+      },
+      sharesquare: {
+        tags: ['Consumer', 'Mobile', 'Concept'],
+        title: 'ShareSquare',
+        sub: 'A houseshare app designed to remove the awkwardness from shared living — splitting bills, tracking chores, and managing house finances without the friction.',
+        sections: [
+          { label: 'The Problem', text: 'Housemates constantly navigate tension around money and shared responsibilities. The real problem isn\'t tracking — it\'s the social awkwardness of asking people to pay up or do their share. Existing tools make you the messenger.' },
+          { label: 'The Approach', text: 'Designed a mobile-first app that automates the tracking so nobody has to be the one who brings it up. Recurring bills split automatically, chore rosters rotate on a schedule, and reminders come from the app — not from a housemate.' },
+          { label: 'Key Design Decisions', decisions: [
+            { title: 'Removed the social friction from financial tracking', body: 'The key insight was that housemates don\'t hate paying — they hate being asked. Automating splits and using neutral in-app reminders removes the interpersonal tension entirely.' },
+            { title: 'Chores and finances in one place', body: 'Most apps separate these. ShareSquare combines them because in shared living, money and tasks are inseparable — someone not doing dishes costs everyone time and patience.' }
+          ]},
+          { label: 'Status', text: 'Concept project exploring shared living UX and habit-forming product design.' }
+        ],
+        link: null, linkLabel: null
+      }
+    };
+
+    function openModal(id) {
+      const c = cases[id];
+      let html = `
+        <div class="modal-tag-row">${c.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+        <h2 class="modal-headline">${c.title}</h2>
+        <p class="modal-subhead">${c.sub}</p>
+      `;
+      c.sections.forEach(s => {
+        html += `<div class="modal-section"><p class="modal-section-label">${s.label}</p>`;
+        if (s.decisions) {
+          html += `<div class="modal-decisions">`;
+          s.decisions.forEach(d => {
+            html += `<div class="decision-card"><strong>${d.title}</strong><p>${d.body}</p></div>`;
+          });
+          html += `</div>`;
+        } else {
+          html += `<p>${s.text}</p>`;
+        }
+        html += `</div>`;
+      });
+      if (c.link) {
+        html += `<a href="${c.link}" target="_blank" class="modal-link">${c.linkLabel}</a>`;
+      }
+      document.getElementById('modalContent').innerHTML = html;
+      document.getElementById('modal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('modal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function handleOverlayClick(e) {
+      if (e.target === document.getElementById('modal')) closeModal();
+    }
+
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    // Scroll animations
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('
