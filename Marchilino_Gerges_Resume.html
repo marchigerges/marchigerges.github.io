@@ -258,9 +258,11 @@
     .footer-url:hover { color: var(--warm); }
 
     @media print {
-      body { background: white; }
-      .page { padding: 48px; }
-    }
+  body { background: white; }
+  .page { padding: 48px; }
+  nav { display: none; }
+  div[style*="height:72px"] { display: none; }
+}
 
     @media (max-width: 640px) {
       .page { padding: 40px 24px; }
