@@ -271,7 +271,6 @@
         </div>
         </div>
       </div>
-      <button class="carousel-btn carousel-next" onclick="moveCarousel(1)" aria-label="Next">&#8594;</button>
       <div class="carousel-dots" id="carouselDots"></div>
     </div>
   </div>
@@ -409,7 +408,10 @@
       d.classList.toggle("active", idx === carouselIndex);
     });
   }
-
+setInterval(() => {
+  currentIndex = (currentIndex + 1) % totalCards;
+  goToSlide(currentIndex);
+}, 3000);
   function moveCarousel(dir) { goToSlide(carouselIndex + dir); }
   buildDots();
   window.addEventListener("resize", function() {
