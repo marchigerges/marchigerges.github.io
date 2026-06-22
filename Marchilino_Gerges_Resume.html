@@ -225,12 +225,19 @@
     }
     .footer-url:hover { color: var(--warm); }
 
-    @media print {
-      body { background: white; }
-      .page { padding: 48px; }
-      nav { display: none !important; }
-      .nav-spacer { display: none !important; }
-    }
+  @media print {
+  body { background: white; }
+  .page { padding: 32px 48px; }
+  nav { display: none !important; }
+  .nav-spacer { display: none !important; }
+  .section { margin-bottom: 32px; }
+  .exp-item { padding: 16px 0; }
+  .summary { font-size: 13px; }
+  .exp-bullets li { font-size: 12px; }
+  .header { margin-bottom: 36px; padding-bottom: 28px; }
+  .header-name { font-size: 40px; }
+  .two-col { gap: 32px; }
+}
 
     @media (max-width: 640px) {
       .page { padding: 40px 24px; }
