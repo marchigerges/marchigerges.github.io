@@ -4,10 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Marchilino Gerges — Resume</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
   <style>
+    /* Fonts are self-hosted in /fonts (from the Google Fonts repo, OFL licensed)
+       so print-to-PDF embeds the real faces instead of falling back to Georgia. */
+    @font-face { font-family: "Instrument Serif"; src: url("fonts/InstrumentSerif-Regular.ttf") format("truetype"); font-weight: 400; font-style: normal; font-display: swap; }
+    @font-face { font-family: "Instrument Serif"; src: url("fonts/InstrumentSerif-Italic.ttf") format("truetype"); font-weight: 400; font-style: italic; font-display: swap; }
+    @font-face { font-family: "DM Sans"; src: url("fonts/DMSans-Variable.ttf") format("truetype-variations"); font-weight: 100 1000; font-style: normal; font-display: swap; }
+    @font-face { font-family: "DM Sans"; src: url("fonts/DMSans-Italic-Variable.ttf") format("truetype-variations"); font-weight: 100 1000; font-style: italic; font-display: swap; }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --bg: #F7F6F3;
@@ -225,19 +229,28 @@
     }
     .footer-url:hover { color: var(--warm); }
 
-  @media print {
-  body { background: white; }
-  .page { padding: 32px 48px; }
-  nav { display: none !important; }
-  .nav-spacer { display: none !important; }
-  .section { margin-bottom: 32px; }
-  .exp-item { padding: 16px 0; page-break-inside: avoid; }
-  .summary { font-size: 13px; }
-  .exp-bullets li { font-size: 12px; }
-  .header { margin-bottom: 36px; padding-bottom: 28px; }
-  .header-name { font-size: 40px; }
-  .two-col { gap: 32px; }
-}
+    /* PRINT — tuned to fit exactly two A4 pages */
+    @page { size: A4; margin: 14mm 0 16mm; }
+    @media print {
+      body { background: white; }
+      .page { max-width: none; padding: 0 15mm; }
+      nav, .nav-spacer { display: none !important; }
+      .header { margin-bottom: 28px; padding-bottom: 20px; }
+      .header-name { font-size: 36px; }
+      .section { margin-bottom: 26px; }
+      .section-label { margin-bottom: 16px; }
+      .summary { font-size: 12.5px; line-height: 1.65; }
+      .exp-item { padding: 12px 0; break-inside: avoid; }
+      .exp-org { font-size: 17px; }
+      .exp-role { margin-bottom: 8px; }
+      .exp-bullets li { font-size: 11.5px; line-height: 1.55; }
+      .two-col { gap: 32px; }
+      .skill-group, .edu-item, .ref-row { break-inside: avoid; }
+      /* Large pill radii double-stroke in some PDF rasterizers — keep print pills modest */
+      .skill-tag { border-radius: 4px; font-size: 10px; }
+      /* Footer repeats the header's name + URL; dropping it in print keeps the PDF to two pages */
+      .resume-footer { display: none; }
+    }
 
     @media (max-width: 640px) {
       .page { padding: 40px 24px; }
@@ -264,7 +277,7 @@
   <header class="header">
     <div>
       <h1 class="header-name">Marchilino <em>Gerges</em></h1>
-      <p class="header-tagline"><span class="warm">Customer experience</span> professional.</p>
+      <p class="header-tagline"><span class="warm">Customer solutions</span> specialist.</p>
     </div>
     <div class="header-contact">
       <span>Bexley, Sydney NSW 2207</span>
@@ -278,12 +291,23 @@
   <!-- SUMMARY -->
   <div class="section">
     <p class="section-label">Profile</p>
-    <p class="summary">Customer experience professional with a psychology background and 4+ years of front-line service across fitness, hospitality, retail, and events. Two years working with startups on customer journey mapping, onboarding design, and retention strategy — always through the lens of the customer. I understand what drives churn, where friction lives, and how to fix it.</p>
+    <p class="summary">Customer experience professional with a psychology background and 4+ years of front-line service across fitness, hospitality, retail, and events. Two years working with startups on customer journey mapping, onboarding design, and retention strategy — always through the lens of the customer. I understand what drives churn, where friction lives, and how to fix it. Now a Customer Solutions Specialist at Reckon, doing exactly that for cloud accounting SaaS.</p>
   </div>
 
   <!-- EXPERIENCE -->
   <div class="section">
     <p class="section-label">Experience</p>
+
+    <div class="exp-item">
+      <div>
+        <div class="exp-org">Reckon</div>
+        <div class="exp-role">Customer Solutions Specialist</div>
+        <ul class="exp-bullets">
+          <li>Front-line customer solutions for Reckon's cloud accounting products</li>
+        </ul>
+      </div>
+      <div class="exp-date">Jul 2026 — Present</div>
+    </div>
 
     <div class="exp-item">
       <div>
