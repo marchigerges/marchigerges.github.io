@@ -5,23 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Marchilino Gerges — Resume</title>
   <style>
-    /* Fonts are self-hosted in /fonts (from the Google Fonts repo, OFL licensed)
-       so print-to-PDF embeds the real faces instead of falling back to Georgia. */
-    @font-face { font-family: "Instrument Serif"; src: url("fonts/InstrumentSerif-Regular.ttf") format("truetype"); font-weight: 400; font-style: normal; font-display: swap; }
-    @font-face { font-family: "Instrument Serif"; src: url("fonts/InstrumentSerif-Italic.ttf") format("truetype"); font-weight: 400; font-style: italic; font-display: swap; }
-    @font-face { font-family: "DM Sans"; src: url("fonts/DMSans-Variable.ttf") format("truetype-variations"); font-weight: 100 1000; font-style: normal; font-display: swap; }
-    @font-face { font-family: "DM Sans"; src: url("fonts/DMSans-Italic-Variable.ttf") format("truetype-variations"); font-weight: 100 1000; font-style: italic; font-display: swap; }
+    /* Fonts are self-hosted in /fonts (Geist + Geist Mono, OFL licensed) so
+       print-to-PDF embeds the real faces instead of falling back to a system font. */
+    @font-face { font-family: "Geist"; src: url("fonts/Geist-Variable.ttf") format("truetype-variations"); font-weight: 100 900; font-style: normal; font-display: swap; }
+    @font-face { font-family: "Geist Mono"; src: url("fonts/GeistMono-Variable.ttf") format("truetype-variations"); font-weight: 100 900; font-style: normal; font-display: swap; }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #F7F6F3;
-      --ink: #1A1917;
-      --ink-2: #6B6860;
-      --ink-3: #A8A59F;
-      --border: #E0DDD7;
-      --warm: #C4846A;
-      --serif: "Instrument Serif", Georgia, serif;
-      --sans: "DM Sans", sans-serif;
+      --bg: #F7F8F8;
+      --ink: #111213;
+      --ink-2: #5B5F63;
+      --ink-3: #9AA0A4;
+      --border: rgba(17,18,19,0.12);
+      --accent: #2547D0;
+      --sans: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
     }
     body {
       background: var(--bg);
@@ -47,22 +45,23 @@
       margin-bottom: 56px;
     }
     .header-name {
-      font-family: var(--serif);
-      font-size: 52px;
+      font-family: var(--sans);
+      font-weight: 600;
+      font-size: 44px;
       line-height: 1.0;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.03em;
       color: var(--ink);
       margin-bottom: 10px;
     }
-    .header-name em { font-style: italic; color: var(--ink-2); }
+    .header-name em { font-style: normal; color: var(--ink-2); }
     .header-tagline {
       font-size: 14px;
-      font-weight: 300;
+      font-weight: 400;
       color: var(--ink-2);
       max-width: 420px;
       line-height: 1.65;
     }
-    .header-tagline .warm { color: var(--warm); font-weight: 500; }
+    .header-tagline .warm { color: var(--accent); font-weight: 500; }
     .header-contact {
       text-align: right;
       display: flex;
@@ -70,20 +69,22 @@
       gap: 5px;
     }
     .header-contact a, .header-contact span {
-      font-size: 12px;
+      font-family: var(--mono);
+      font-size: 11px;
       color: var(--ink-3);
       text-decoration: none;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.01em;
       display: block;
     }
-    .header-contact a:hover { color: var(--warm); }
+    .header-contact a:hover { color: var(--accent); }
 
     /* SECTION */
     .section { margin-bottom: 52px; }
     .section-label {
+      font-family: var(--mono);
       font-size: 11px;
       font-weight: 500;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--ink-3);
       margin-bottom: 28px;
@@ -102,7 +103,7 @@
     .summary {
       font-size: 15px;
       color: var(--ink-2);
-      font-weight: 300;
+      font-weight: 400;
       line-height: 1.75;
       max-width: 680px;
     }
@@ -117,25 +118,28 @@
     }
     .exp-item:last-child { border-bottom: 1px solid var(--border); }
     .exp-org {
-      font-family: var(--serif);
-      font-size: 20px;
+      font-family: var(--sans);
+      font-weight: 600;
+      font-size: 18px;
       letter-spacing: -0.01em;
       margin-bottom: 2px;
     }
     .exp-role {
+      font-family: var(--mono);
       font-size: 11px;
       font-weight: 500;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: var(--warm);
+      color: var(--accent);
       margin-bottom: 12px;
     }
     .exp-date {
+      font-family: var(--mono);
       font-size: 11px;
       color: var(--ink-3);
       white-space: nowrap;
       padding-top: 4px;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.02em;
     }
     .exp-bullets {
       list-style: none;
@@ -147,7 +151,7 @@
     .exp-bullets li {
       font-size: 13px;
       color: var(--ink-2);
-      font-weight: 300;
+      font-weight: 400;
       line-height: 1.65;
       padding-left: 16px;
       position: relative;
@@ -171,40 +175,43 @@
     /* SKILLS */
     .skills-block { display: flex; flex-direction: column; gap: 20px; }
     .skill-group-label {
+      font-family: var(--mono);
       font-size: 11px;
       font-weight: 500;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--ink-3);
       margin-bottom: 8px;
     }
     .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
     .skill-tag {
-      font-size: 11px;
+      font-family: var(--mono);
+      font-size: 10px;
       font-weight: 500;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
       text-transform: uppercase;
       color: var(--ink-3);
       border: 1px solid var(--border);
-      padding: 4px 10px;
-      border-radius: 100px;
+      padding: 4px 9px;
+      border-radius: 6px;
     }
 
     /* EDUCATION */
     .edu-item { margin-bottom: 16px; }
     .edu-qual {
-      font-family: var(--serif);
-      font-size: 16px;
+      font-family: var(--sans);
+      font-weight: 600;
+      font-size: 15px;
       letter-spacing: -0.01em;
       margin-bottom: 2px;
     }
-    .edu-inst { font-size: 12px; color: var(--ink-2); font-weight: 300; }
-    .edu-date { font-size: 11px; color: var(--ink-3); margin-top: 1px; }
+    .edu-inst { font-size: 12px; color: var(--ink-2); font-weight: 400; }
+    .edu-date { font-family: var(--mono); font-size: 11px; color: var(--ink-3); margin-top: 1px; }
 
     /* REFERENCES */
     .ref-row { display: flex; flex-direction: column; gap: 4px; margin-bottom: 16px; }
-    .ref-name { font-family: var(--serif); font-size: 16px; letter-spacing: -0.01em; }
-    .ref-detail { font-size: 12px; color: var(--ink-2); font-weight: 300; }
+    .ref-name { font-family: var(--sans); font-weight: 600; font-size: 15px; letter-spacing: -0.01em; }
+    .ref-detail { font-size: 12px; color: var(--ink-2); font-weight: 400; }
 
     /* FOOTER */
     .resume-footer {
@@ -216,18 +223,18 @@
       justify-content: space-between;
     }
     .footer-name {
-      font-family: var(--serif);
-      font-style: italic;
-      font-size: 14px;
+      font-family: var(--mono);
+      font-size: 13px;
       color: var(--ink-3);
     }
     .footer-url {
+      font-family: var(--mono);
       font-size: 11px;
       color: var(--ink-3);
-      letter-spacing: 0.06em;
+      letter-spacing: 0.04em;
       text-decoration: none;
     }
-    .footer-url:hover { color: var(--warm); }
+    .footer-url:hover { color: var(--accent); }
 
     /* PRINT — tuned to fit exactly two A4 pages */
     @page { size: A4; margin: 14mm 0 16mm; }
@@ -236,18 +243,18 @@
       .page { max-width: none; padding: 0 15mm; }
       nav, .nav-spacer { display: none !important; }
       .header { margin-bottom: 28px; padding-bottom: 20px; }
-      .header-name { font-size: 36px; }
+      .header-name { font-size: 32px; }
       .section { margin-bottom: 26px; }
       .section-label { margin-bottom: 16px; }
       .summary { font-size: 12.5px; line-height: 1.65; }
       .exp-item { padding: 12px 0; break-inside: avoid; }
-      .exp-org { font-size: 17px; }
+      .exp-org { font-size: 15.5px; }
       .exp-role { margin-bottom: 8px; }
       .exp-bullets li { font-size: 11.5px; line-height: 1.55; }
       .two-col { gap: 32px; }
       .skill-group, .edu-item, .ref-row { break-inside: avoid; }
-      /* Large pill radii double-stroke in some PDF rasterizers — keep print pills modest */
-      .skill-tag { border-radius: 4px; font-size: 10px; }
+      /* Keep print pill borders modest — large radii double-stroke in some PDF rasterizers */
+      .skill-tag { border-radius: 4px; font-size: 9.5px; }
       /* Footer repeats the header's name + URL; dropping it in print keeps the PDF to two pages */
       .resume-footer { display: none; }
     }
@@ -256,7 +263,7 @@
       .page { padding: 40px 24px; }
       .header { grid-template-columns: 1fr; gap: 24px; }
       .header-contact { text-align: left; }
-      .header-name { font-size: 36px; }
+      .header-name { font-size: 32px; }
       .two-col { grid-template-columns: 1fr; gap: 0; }
       .exp-item { grid-template-columns: 1fr; }
       .exp-date { padding-top: 0; margin-top: -8px; }
@@ -265,9 +272,9 @@
 </head>
 <body>
 
-<nav style="position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:16px 40px;background:rgba(247,246,243,0.88);backdrop-filter:blur(12px);border-bottom:1px solid #E0DDD7;">
-  <a href="https://marchilino.com" style="font-family:'Instrument Serif',Georgia,serif;font-size:16px;color:#1A1917;text-decoration:none;">← Marchilino</a>
-  <a href="Marchilino_Gerges_Resume.pdf" download style="display:inline-flex;align-items:center;gap:8px;background:#1A1917;color:#F7F6F3;text-decoration:none;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:9px 20px;border-radius:100px;">Download PDF ↓</a>
+<nav style="position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:16px 40px;background:rgba(247,248,248,0.82);backdrop-filter:blur(14px);border-bottom:1px solid rgba(17,18,19,0.10);">
+  <a href="https://marchilino.com" style="font-family:'Geist',sans-serif;font-weight:600;font-size:15px;color:#111213;text-decoration:none;">← Marchilino</a>
+  <a href="Marchilino_Gerges_Resume.pdf" download style="display:inline-flex;align-items:center;gap:8px;background:#111213;color:#F7F8F8;text-decoration:none;font-family:'Geist Mono',monospace;font-size:12px;font-weight:500;letter-spacing:0.02em;text-transform:uppercase;padding:9px 18px;border-radius:8px;">Download PDF ↓</a>
 </nav>
 <div class="nav-spacer" style="height:72px;"></div>
 
@@ -327,9 +334,9 @@
         <div class="exp-org">UX / Design Work</div>
         <div class="exp-role">Customer Experience Consultant</div>
         <ul class="exp-bullets">
-          <li><strong style="font-weight:500;color:var(--ink);">Spread</strong> — Redesigned customer onboarding, cut qualification from 25 to 10 steps, built archetype-based recommendation engine; retained post-engagement to oversee build with CTO</li>
-          <li><strong style="font-weight:500;color:var(--ink);">Men in Motion</strong> — Identified friction points, rebuilt trust hierarchy, applied pricing psychology; post-launch: 4 new sign-ups, 75% client retention beyond typical average</li>
-          <li><strong style="font-weight:500;color:var(--ink);">Deep Defense Solutions</strong> — Mapped end-to-end incident lifecycle, designed human review gates at escalation points, defined ticket validity criteria for B2B SaaS platform (NDA)</li>
+          <li><strong style="font-weight:600;color:var(--ink);">Spread</strong> — Redesigned customer onboarding, cut qualification from 25 to 10 steps, built archetype-based recommendation engine; retained post-engagement to oversee build with CTO</li>
+          <li><strong style="font-weight:600;color:var(--ink);">Men in Motion</strong> — Identified friction points, rebuilt trust hierarchy, applied pricing psychology; post-launch: 4 new sign-ups, 75% client retention beyond typical average</li>
+          <li><strong style="font-weight:600;color:var(--ink);">Deep Defense Solutions</strong> — Mapped end-to-end incident lifecycle, designed human review gates at escalation points, defined ticket validity criteria for B2B SaaS platform (NDA)</li>
         </ul>
       </div>
       <div class="exp-date">May 2024 — Mar 2026</div>
@@ -434,7 +441,7 @@
           <div class="edu-date">Nov 2023 — May 2024</div>
         </div>
         <div class="edu-item">
-          <div class="edu-qual">Bachelor of Social Work <em style="font-family:var(--serif);font-style:italic;font-size:13px;color:var(--ink-3);">(incomplete)</em></div>
+          <div class="edu-qual">Bachelor of Social Work <em style="font-family:var(--mono);font-style:normal;font-size:12px;color:var(--ink-3);">(incomplete)</em></div>
           <div class="edu-inst">Australian Catholic University, Strathfield</div>
         </div>
       </div>
@@ -444,17 +451,17 @@
         <div class="ref-row">
           <div class="ref-name">Gina Cicchini</div>
           <div class="ref-detail">National Event Ops Manager, Gelato Messina</div>
-          <div class="ref-detail" style="color:var(--ink-3);font-size:11px;letter-spacing:0.04em;">Available upon request</div>
+          <div class="ref-detail" style="color:var(--ink-3);font-family:var(--mono);font-size:10.5px;letter-spacing:0.02em;">Available upon request</div>
         </div>
         <div class="ref-row">
           <div class="ref-name">Bishoy Eskander</div>
           <div class="ref-detail">Franchisee, Plus Fitness Rockdale</div>
-          <div class="ref-detail" style="color:var(--ink-3);font-size:11px;letter-spacing:0.04em;">Available upon request</div>
+          <div class="ref-detail" style="color:var(--ink-3);font-family:var(--mono);font-size:10.5px;letter-spacing:0.02em;">Available upon request</div>
         </div>
         <div class="ref-row">
           <div class="ref-name">Angela Metri</div>
           <div class="ref-detail">Founder, Spread</div>
-          <div class="ref-detail" style="color:var(--ink-3);font-size:11px;letter-spacing:0.04em;">Available upon request</div>
+          <div class="ref-detail" style="color:var(--ink-3);font-family:var(--mono);font-size:10.5px;letter-spacing:0.02em;">Available upon request</div>
         </div>
       </div>
     </div>
