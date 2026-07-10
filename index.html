@@ -50,7 +50,7 @@
     /* HERO */
     @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 140px 40px 80px; max-width: var(--max); margin: 0 auto; }
+    .hero { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 140px 40px 80px; max-width: var(--max); margin: 0 auto; }
     .hero-intro-row { display: flex; align-items: center; gap: 14px; margin-bottom: 32px; opacity: 0; animation: fadeUp var(--dur-3) var(--ease) forwards 0.1s; }
     .hero-photo { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; object-position: center top; border: 1px solid var(--border-strong); flex-shrink: 0; }
     .hero-label { font-family: var(--mono); font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); display: flex; align-items: center; gap: 12px; }
@@ -62,6 +62,25 @@
     .hero-actions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; opacity: 0; animation: fadeUp var(--dur-3) var(--ease) forwards 0.5s; }
     .hero-scroll { position: absolute; right: 40px; bottom: 80px; display: flex; flex-direction: column; align-items: center; gap: 8px; color: var(--ink-3); font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; writing-mode: vertical-rl; opacity: 0; animation: fadeIn 1s ease forwards 0.9s; }
     .hero-scroll::after { content: ""; width: 1px; height: 48px; background: var(--border-strong); display: block; }
+
+    /* Large editorial portrait, desktop only. Its left edge fades to transparent
+       for a soft blend into the page — the headline is kept narrow enough to
+       always wrap clear of that fade zone, so the photo reads as a confident
+       full-height panel rather than a gimmick that risks clipping a word. */
+    .hero-media { display: none; }
+    @media (min-width: 900px) {
+      .hero-media {
+        display: block; position: absolute; top: 0; right: 0; bottom: 0; z-index: 2;
+        width: clamp(300px, 38vw, 560px); overflow: hidden; pointer-events: none;
+        -webkit-mask-image: linear-gradient(to right, transparent, black 30%);
+        mask-image: linear-gradient(to right, transparent, black 30%);
+        opacity: 0; animation: fadeIn var(--dur-3) var(--ease) forwards 0.15s;
+      }
+      .hero-media img { width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: grayscale(1) contrast(1.05); display: block; }
+      .hero-headline { max-width: 480px; }
+      .hero-intro-row .hero-photo { display: none; } /* redundant once the large portrait is visible */
+      .hero-scroll { display: none; } /* the portrait itself carries enough visual weight to imply "more below" */
+    }
 
     /* Magnetic CTAs: JS translates within a small radius; transform-origin stays centered so scale/press read as one motion */
     .btn-primary, .btn-secondary { will-change: transform; }
@@ -203,7 +222,7 @@
     /* Reduced motion: show everything, move nothing */
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      .hero-intro-row, .hero-headline, .hero-sub, .hero-actions, .hero-scroll { animation: none; opacity: 1; }
+      .hero-intro-row, .hero-headline, .hero-sub, .hero-actions, .hero-scroll, .hero-media { animation: none; opacity: 1; }
       .marquee-track { animation: none; }
       .dot-green, .footer-time::before { animation: none; }
       .carousel-track, .modal-panel, .case-arrow, .carousel-dot { transition: none; }
@@ -242,6 +261,7 @@
 </nav>
 
 <div style="position:relative;">
+  <div class="hero-media"><img src="Profile%20Pic.jpg" alt="" /></div>
   <div class="hero">
     <div class="hero-intro-row">
       <img src="Profile%20Pic.jpg" alt="Marchilino" class="hero-photo" />
