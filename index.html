@@ -114,6 +114,14 @@
     .reveal { opacity: 0; transform: translateY(16px); transition: opacity var(--dur-3) var(--ease), transform var(--dur-3) var(--ease); }
     .reveal.is-visible { opacity: 1; transform: translateY(0); }
 
+    /* Skeleton loading: a shimmer sweep painted as the image's own background,
+       swapped for the real photo once it loads. Only applied to images that
+       are actual network requests (hero portrait, about photo, case thumbs) —
+       the carousel logos are inline data URIs with nothing to wait for. */
+    @keyframes skeleton-sheen { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+    .skel { background-image: linear-gradient(100deg, var(--surface) 20%, var(--border-strong) 45%, var(--surface) 70%); background-size: 200% 100%; animation: skeleton-sheen 1.6s ease-in-out infinite; }
+    .skel.is-loaded { background-image: none; animation: none; }
+
     /* CAROUSEL */
     #experience { background: var(--bg); }
     .carousel-outer { position: relative; }
@@ -141,7 +149,7 @@
     .case-item { display: grid; grid-template-columns: 40px 80px 1fr auto 28px; align-items: center; gap: 28px; padding: 24px 16px; margin: 0 -16px; border-top: 1px solid var(--border); cursor: pointer; border-radius: var(--radius-sm); transition: background-color var(--dur-1) var(--ease); }
     .case-item:last-child { border-bottom: 1px solid var(--border); }
     .case-item:hover, .case-item:focus-visible { background: var(--bg); }
-    .case-thumb { width: 80px; height: 56px; border-radius: var(--radius-sm); object-fit: contain; background: var(--bg); border: 1px solid var(--border); padding: 4px; }
+    .case-thumb { width: 80px; height: 56px; border-radius: var(--radius-sm); object-fit: contain; background-color: var(--bg); border: 1px solid var(--border); padding: 4px; }
     .case-num { font-family: var(--mono); font-size: 12px; color: var(--ink-3); }
     .case-name { font-family: var(--sans); font-weight: 600; font-size: clamp(17px, 1.8vw, 24px); letter-spacing: -0.015em; margin-bottom: 4px; transition: color var(--dur-1) var(--ease); }
     .case-item:hover .case-name, .case-item:focus-visible .case-name { color: var(--accent); }
@@ -232,6 +240,7 @@
       .carousel-track, .modal-panel, .case-arrow, .carousel-dot { transition: none; }
       .reveal { opacity: 1; transform: none; transition: none; }
       .btn-primary, .btn-secondary, .contact-btn { transition: background-color var(--dur-1) ease, color var(--dur-1) ease, border-color var(--dur-1) ease !important; }
+      .skel:not(.is-loaded) { animation: none; background-image: none; background-color: var(--surface); }
     }
 
     @media (max-width: 768px) {
@@ -264,7 +273,7 @@
 </nav>
 
 <div style="position:relative;">
-  <div class="hero-media"><img src="Profile%20Pic.jpg" alt="" /></div>
+  <div class="hero-media"><img src="Profile%20Pic.jpg" alt="" class="skel" /></div>
   <div class="hero">
     <div class="hero-intro-row">
       <img src="Profile%20Pic.jpg" alt="Marchilino" class="hero-photo" />
@@ -354,37 +363,37 @@
     </div>
     <div class="case-grid">
       <div class="case-item reveal" style="transition-delay:0ms" role="button" tabindex="0" onclick="openModal('spread')" aria-label="View Spread case study">
-        <span class="case-num">01</span><img loading="lazy" class="case-thumb" src="SPREAD.png" alt="Spread" />
+        <span class="case-num">01</span><img loading="lazy" class="case-thumb skel" src="SPREAD.png" alt="Spread" />
         <div class="case-meta"><div class="case-name">Spread</div><div class="case-desc">Redesigned customer onboarding to reduce drop-off and drive word-of-mouth growth</div></div>
         <div class="case-tags"><span class="tag">Onboarding</span><span class="tag">Retention</span><span class="tag">Growth</span></div>
         <span class="case-arrow">&#8594;</span>
       </div>
       <div class="case-item reveal" style="transition-delay:60ms" role="button" tabindex="0" onclick="openModal('mim')" aria-label="View Men in Motion case study">
-        <span class="case-num">02</span><img loading="lazy" class="case-thumb" src="MEN_IN_MOTION.png" alt="Men in Motion" />
+        <span class="case-num">02</span><img loading="lazy" class="case-thumb skel" src="MEN_IN_MOTION.png" alt="Men in Motion" />
         <div class="case-meta"><div class="case-name">Men in Motion</div><div class="case-desc">Identified customer friction points and rebuilt the experience to improve trust and retention</div></div>
         <div class="case-tags"><span class="tag">CX</span><span class="tag">Retention</span><span class="tag">Trust</span></div>
         <span class="case-arrow">&#8594;</span>
       </div>
       <div class="case-item reveal" style="transition-delay:120ms" role="button" tabindex="0" onclick="openModal('dds')" aria-label="View Deep Defense Solutions case study">
-        <span class="case-num">03</span><img loading="lazy" class="case-thumb" src="DDS.png" alt="Deep Defense Solutions" />
+        <span class="case-num">03</span><img loading="lazy" class="case-thumb skel" src="DDS.png" alt="Deep Defense Solutions" />
         <div class="case-meta"><div class="case-name">Deep Defense Solutions</div><div class="case-desc">Mapped a complex incident lifecycle and designed human review systems to protect users</div></div>
         <div class="case-tags"><span class="tag">B2B SaaS</span><span class="tag">Systems</span><span class="tag">NDA</span></div>
         <span class="case-arrow">&#8594;</span>
       </div>
       <div class="case-item reveal" style="transition-delay:180ms" role="button" tabindex="0" onclick="openModal('invstr')" aria-label="View INVSTR case study">
-        <span class="case-num">04</span><img loading="lazy" class="case-thumb" src="INVSTR.png" alt="INVSTR" />
+        <span class="case-num">04</span><img loading="lazy" class="case-thumb skel" src="INVSTR.png" alt="INVSTR" />
         <div class="case-meta"><div class="case-name">INVSTR</div><div class="case-desc">Designed onboarding for first-time investors &#8212; removing jargon and building confidence</div></div>
         <div class="case-tags"><span class="tag">Fintech</span><span class="tag">Onboarding</span><span class="tag">Concept</span></div>
         <span class="case-arrow">&#8594;</span>
       </div>
       <div class="case-item reveal" style="transition-delay:240ms" role="button" tabindex="0" onclick="openModal('localink')" aria-label="View LocaLink case study">
-        <span class="case-num">05</span><img loading="lazy" class="case-thumb" src="Loca.png" alt="LocaLink" />
+        <span class="case-num">05</span><img loading="lazy" class="case-thumb skel" src="Loca.png" alt="LocaLink" />
         <div class="case-meta"><div class="case-name">LocaLink</div><div class="case-desc">Travel app connecting people through shared interests &#8212; trust and safety by design</div></div>
         <div class="case-tags"><span class="tag">Travel</span><span class="tag">Trust</span><span class="tag">Concept</span></div>
         <span class="case-arrow">&#8594;</span>
       </div>
       <div class="case-item reveal" style="transition-delay:300ms" role="button" tabindex="0" onclick="openModal('sharesquare')" aria-label="View ShareSquare case study">
-        <span class="case-num">06</span><img loading="lazy" class="case-thumb" src="SHARESQUARE.png" alt="ShareSquare" />
+        <span class="case-num">06</span><img loading="lazy" class="case-thumb skel" src="SHARESQUARE.png" alt="ShareSquare" />
         <div class="case-meta"><div class="case-name">ShareSquare</div><div class="case-desc">Removed friction from shared living &#8212; bills, chores, and accountability without the awkwardness</div></div>
         <div class="case-tags"><span class="tag">Consumer</span><span class="tag">Friction</span><span class="tag">Concept</span></div>
         <span class="case-arrow">&#8594;</span>
@@ -412,7 +421,7 @@
         </div>
       </div>
       <div class="about-right">
-        <img src="Profile%20Pic.jpg" alt="Marchilino" class="about-photo" />
+        <img src="Profile%20Pic.jpg" alt="Marchilino" class="about-photo skel" />
         <div class="skills-grid">
           <div class="skill-cell"><div class="skill-label">Customer Service</div><div class="skill-items"><span>Complaint handling</span><span>De-escalation</span><span>CRM: The Hub</span><span>Member onboarding</span></div></div>
           <div class="skill-cell"><div class="skill-label">Product Thinking</div><div class="skill-items"><span>Journey mapping</span><span>Friction identification</span><span>Onboarding design</span><span>Retention strategy</span></div></div>
@@ -459,6 +468,17 @@
 
 <script>
   document.getElementById("marquee").innerHTML += document.getElementById("marquee").innerHTML;
+
+  // SKELETON LOADING — each .skel image starts hidden behind a shimmer
+  // background; swap to the real photo the moment it (or the cache) has it.
+  document.querySelectorAll("img.skel").forEach(function(img) {
+    function reveal() { img.classList.add("is-loaded"); }
+    if (img.complete && img.naturalWidth > 0) { reveal(); }
+    else {
+      img.addEventListener("load", reveal);
+      img.addEventListener("error", reveal); // don't shimmer forever on a broken image
+    }
+  });
 
   // NAV — hairline + blur only appear once the hero has been scrolled past
   var navEl = document.querySelector("nav");
