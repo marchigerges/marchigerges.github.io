@@ -64,15 +64,22 @@
     .hero-scroll::after { content: ""; width: 1px; height: 48px; background: var(--border-strong); display: block; }
 
     /* Large editorial portrait. Mobile-first: a full-width banner stacked above
-       the text. From 900px up it becomes an absolute right-hand panel instead,
-       with a soft left-edge fade so the headline (kept narrow enough to always
-       wrap clear of it) reads as sitting in front of a confident photo panel
-       rather than risking a clipped word. */
-    .hero-media { display: block; width: 100%; height: 46vh; min-height: 280px; overflow: hidden; opacity: 0; animation: fadeIn var(--dur-3) var(--ease) forwards 0.15s; }
+       the text, its bottom edge fading into the page so the eyebrow row can
+       sit up into that soft zone — the same "type meets photo" blend as the
+       desktop layout below, just rotated from a horizontal split to a vertical
+       one. From 900px up it becomes an absolute right-hand panel instead, with
+       a left-edge fade so the headline (kept narrow enough to always wrap
+       clear of it) reads as sitting in front of a confident photo panel rather
+       than risking a clipped word. */
+    .hero-media { display: block; width: 100%; height: 46vh; min-height: 280px; overflow: hidden; opacity: 0; animation: fadeIn var(--dur-3) var(--ease) forwards 0.15s;
+      -webkit-mask-image: linear-gradient(to bottom, black 65%, transparent);
+      mask-image: linear-gradient(to bottom, black 65%, transparent);
+    }
     .hero-media img { width: 100%; height: 100%; object-fit: cover; object-position: center 18%; filter: grayscale(1) contrast(1.05); display: block; }
     .hero-intro-row .hero-photo { display: none; } /* redundant once the large portrait is visible */
     @media (max-width: 899px) {
       .hero { min-height: 0; justify-content: flex-start; padding: 0 24px 64px; }
+      .hero-intro-row { margin-top: -52px; }
     }
     @media (min-width: 900px) {
       .hero-media {
